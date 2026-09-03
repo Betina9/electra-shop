@@ -1,8 +1,13 @@
+import Header from "./components/header";
+
 function App() {
   return (
-    <main>
-      <h1>Electra shop</h1>
-    </main>
+    <>
+      <Header />
+      <main>
+        <h1>Electra shop</h1>
+      </main>
+    </>
   );
 }
 
