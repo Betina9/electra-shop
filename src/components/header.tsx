@@ -20,18 +20,18 @@ function Header() {
           <input
             type="search"
             placeholder="Søk etter produkter..."
-            className="w-full rounded-xl border border-slate-300 py-3 pl-12 pr-4 outline-none transition focus:border-violet-500 focus:ring-2 focus:ring-violet-200"
+            className="w-full rounded-lg border border-slate-300 py-3 pl-12 pr-4 outline-none transition focus:border-violet-500 focus:ring-2 focus:ring-violet-200"
           />
         </div>
 
         <button
           type="button"
           aria-label="Åpne handlekurv"
-          className="relative rounded-xl p-3 text-slate-700 transition hover:bg-slate-100 hover:text-violet-600"
+          className="relative rounded-lg p-3 text-slate-700 transition hover:bg-slate-100 hover:text-violet-600"
         >
           <ShoppingCart size={24} />
 
-          <span className="absolute -right-1 -top-1 flex h-5 min-w-5 items-center justify-center rounded-full bg-violet-600 px-1 text-xs font-semibold text-white">
+          <span className="absolute -right-1 -top-1 flex h-5 min-w-5 items-center justify-center rounded-full bg-[#6D5BD0] px-1 text-xs font-semibold text-white">
             0
           </span>
         </button>
