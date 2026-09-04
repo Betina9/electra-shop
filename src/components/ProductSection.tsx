@@ -1,41 +1,28 @@
+import { useEffect, useState } from "react";
 import ProductCard from "./ProductCard";
-
-const products = [
-  {
-    id: 1,
-    name: "MacBook Air 13 M2",
-    brand: "Apple",
-    price: 9999,
-    image: "https://placehold.co/400x400?text=MacBook",
-    rating: 4.8,
-  },
-  {
-    id: 2,
-    name: "WH-1000XM5 Wireless Headphones",
-    brand: "Sony",
-    price: 3490,
-    image: "https://placehold.co/400x400?text=Headphones",
-    rating: 4.7,
-  },
-  {
-    id: 3,
-    name: "Galaxy S23 Ultra 5G",
-    brand: "Samsung",
-    price: 11990,
-    image: "https://placehold.co/400x400?text=Phone",
-    rating: 4.6,
-  },
-  {
-    id: 4,
-    name: '65" OLED 4K Smart TV',
-    brand: "LG",
-    price: 12990,
-    image: "https://placehold.co/400x400?text=TV",
-    rating: 4.5,
-  },
-];
+import { getProducts } from "../services/productAPI";
+import type { Product } from "../types/product";
 
 function ProductSection() {
+  const [products, setProducts] = useState<Product[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    async function loadProducts() {
+      try {
+        const data = await getProducts();
+        setProducts(data.products);
+      } catch {
+        setError("Kunne ikke hente produkter");
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    loadProducts();
+  }, []);
+
   return (
     <section className="mx-auto max-w-7xl px-6 pb-16">
       <div className="mb-8">
@@ -45,14 +32,18 @@ function ProductSection() {
           Populært akkurat nå
         </h2>
 
+        {loading && <p className="mt-8 text-slate-600">Laster produkter...</p>}
+
+        {error && <p className="mt-8 text-red-600">{error}</p>}
+
         <div className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
           {products.map((product) => (
             <ProductCard
               key={product.id}
-              name={product.name}
-              brand={product.brand}
+              name={product.title}
+              brand={product.brand ?? "Ukjent merke"}
               price={product.price}
-              image={product.image}
+              image={product.thumbnail}
               rating={product.rating}
             />
           ))}

@@ -8,7 +8,7 @@ function Header() {
           href="/"
           className="text-2xl font-bold tracking-tight text-slate-950"
         >
-          Electra
+          Makeup Dream
         </a>
 
         <div className="relative flex-1">
@@ -19,7 +19,7 @@ function Header() {
 
           <input
             type="search"
-            placeholder="Søk etter produkter..."
+            placeholder="Søk etter sminke, parfyme og hudpleie..."
             className="w-full rounded-lg border border-slate-300 py-3 pl-12 pr-4 outline-none transition focus:border-violet-500 focus:ring-2 focus:ring-violet-200"
           />
         </div>

@@ -1,10 +1,10 @@
-import { Headphones, Laptop, Smartphone, Tv } from "lucide-react";
+import { Brush, Droplets, Heart, Sparkles } from "lucide-react";
 
 const categories = [
-  { name: "Laptop", icon: Laptop },
-  { name: "Mobil", icon: Smartphone },
-  { name: "Lyd", icon: Headphones },
-  { name: "TV", icon: Tv },
+  { name: "Sminke", icon: Brush },
+  { name: "Hudpleie", icon: Droplets },
+  { name: "Parfyme", icon: Sparkles },
+  { name: "Beauty", icon: Heart },
 ];
 
 function CategorySection() {
