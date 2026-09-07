@@ -8,13 +8,28 @@ type ProductResponse = {
 };
 
 export async function getProducts(): Promise<ProductResponse> {
-  const response = await fetch("https://dummyjson.com/products?limit=8");
+  const categories = ["beauty", "fragrances", "skin-care"];
 
-  if (!response.ok) {
+  const responses = await Promise.all(
+    categories.map((category) =>
+      fetch(`https://dummyjson.com/products/category/${category}`)
+    )
+  );
+
+  if (responses.some((response) => !response.ok)) {
     throw new Error("Kunne ikke hente produkter");
   }
 
-  const data: ProductResponse = await response.json();
+  const data: ProductResponse[] = await Promise.all(
+    responses.map((response) => response.json())
+  );
 
-  return data;
+  const products = data.flatMap((response) => response.products);
+
+  return {
+    products,
+    total: products.length,
+    skip: 0,
+    limit: products.length,
+  };
 }
