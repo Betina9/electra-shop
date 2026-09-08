@@ -10,12 +10,12 @@ type ProductCardProps = {
 
 function ProductCard({ name, brand, price, image, rating }: ProductCardProps) {
   return (
-    <article className="flex h-full flex-col rounded-xl border border-slate-200 bg-white p-4 transition hover:border-[#6D5BD0] hover:shadow-md">
+    <article className="flex h-full flex-col rounded-xl border border-slate-200 bg-white p-4 transition hover:border-[#B85F6B] hover:shadow-md">
       <div className="relative mb-4 flex aspect-square items-center justify-center overflow-hidden rounded-lg bg-slate-50">
         <button
           type="button"
           aria-label="{`Lagre ${name}`"
-          className="absolute right-3 top-3 rounded-full bg-white p-2 text-slate-600 shadow-sm transition hover:text-[#6D5BD0]"
+          className="absolute right-3 top-3 rounded-full bg-white p-2 text-slate-600 shadow-sm transition hover:text-[#B85F6B]"
         >
           <Heart size={18} />
         </button>
@@ -42,7 +42,7 @@ function ProductCard({ name, brand, price, image, rating }: ProductCardProps) {
 
         <button
           type="button"
-          className="mt-4 flex items-center justify-center gap-2 rounded-lg bg-[#6D5BD0] px-4 py-3 font-semibold text-white transition hover:bg-[#5B4BC4] focus:outline-none focus:ring-2 focus:ring-[#6D5BD0] focus:ring-offset-2"
+          className="mt-4 flex items-center justify-center gap-2 rounded-lg bg-[#B85F6B] px-4 py-3 font-semibold text-white transition hover:bg-[#A6505C] focus:outline-none focus:ring-2 focus:ring-[#B85F6B] focus:ring-offset-2"
         >
           <ShoppingCart size={18} />
           Legg i handlekurv

@@ -26,9 +26,9 @@ function ProductSection() {
   return (
     <section className="mx-auto max-w-7xl px-6 pb-16">
       <div className="mb-8">
-        <p className="font-semibold text-[#6D5BD0]">Produkter</p>
+        <p className="font-semibold text-[#B85F6B]">Produkter</p>
 
-        <h2 className="mt-2 text-3xl font-bold tracking-tight text-[#172033]">
+        <h2 className="mt-2 text-3xl font-bold tracking-tight text-[#B85F6B]">
           Populært akkurat nå
         </h2>
 
@@ -37,7 +37,7 @@ function ProductSection() {
         {error && <p className="mt-8 text-red-600">{error}</p>}
 
         <div className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-          {products.map((product) => (
+          {products.slice(0, 8).map((product) => (
             <ProductCard
               key={product.id}
               name={product.title}
