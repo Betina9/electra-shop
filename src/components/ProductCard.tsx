@@ -18,7 +18,27 @@ function ProductCard({
   image,
   rating,
 }: ProductCardProps) {
-  const [isFavorite, setIsFavorite] = useState(false);
+  const [isFavorite, setIsFavorite] = useState(() => {
+    const savedFavorites = JSON.parse(
+      localStorage.getItem("favorites") || "[]"
+    );
+
+    return savedFavorites.includes(id);
+  });
+
+  function toggleFavorite() {
+    const savedFavorites: number[] = JSON.parse(
+      localStorage.getItem("favorites") || "[]"
+    );
+
+    const updatedFavorites = isFavorite
+      ? savedFavorites.filter((favoriteId) => favoriteId !== id)
+      : [...savedFavorites, id];
+
+    localStorage.setItem("favorites", JSON.stringify(updatedFavorites));
+
+    setIsFavorite(!isFavorite);
+  }
 
   return (
     <article className="flex h-full flex-col rounded-xl border border-slate-200 bg-white p-4 transition hover:border-[#B85F6B] hover:shadow-md">
@@ -30,7 +50,7 @@ function ProductCard({
               ? `Fjern ${name} fra favoritter`
               : `Lagre ${name} som favoritt`
           }
-          onClick={() => setIsFavorite(!isFavorite)}
+          onClick={toggleFavorite}
           className="absolute right-3 top-3 cursor-pointer rounded-full bg-white p-2 text-[#B85F6B] shadow-sm transition"
         >
           <Heart size={18} fill={isFavorite ? "#B85F6B" : "none"} />
