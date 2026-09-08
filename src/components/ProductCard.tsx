@@ -1,6 +1,8 @@
+import { useState } from "react";
 import { Heart, ShoppingCart } from "lucide-react";
 
 type ProductCardProps = {
+  id: number;
   name: string;
   brand: string;
   price: number;
@@ -8,16 +10,30 @@ type ProductCardProps = {
   rating?: number;
 };
 
-function ProductCard({ name, brand, price, image, rating }: ProductCardProps) {
+function ProductCard({
+  id,
+  name,
+  brand,
+  price,
+  image,
+  rating,
+}: ProductCardProps) {
+  const [isFavorite, setIsFavorite] = useState(false);
+
   return (
     <article className="flex h-full flex-col rounded-xl border border-slate-200 bg-white p-4 transition hover:border-[#B85F6B] hover:shadow-md">
       <div className="relative mb-4 flex aspect-square items-center justify-center overflow-hidden rounded-lg bg-slate-50">
         <button
           type="button"
-          aria-label="{`Lagre ${name}`"
-          className="absolute right-3 top-3 rounded-full bg-white p-2 text-slate-600 shadow-sm transition hover:text-[#B85F6B]"
+          aria-label={
+            isFavorite
+              ? `Fjern ${name} fra favoritter`
+              : `Lagre ${name} som favoritt`
+          }
+          onClick={() => setIsFavorite(!isFavorite)}
+          className="absolute right-3 top-3 cursor-pointer rounded-full bg-white p-2 text-[#B85F6B] shadow-sm transition"
         >
-          <Heart size={18} />
+          <Heart size={18} fill={isFavorite ? "#B85F6B" : "none"} />
         </button>
 
         <img

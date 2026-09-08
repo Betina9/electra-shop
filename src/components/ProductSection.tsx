@@ -3,7 +3,11 @@ import ProductCard from "./ProductCard";
 import { getProducts } from "../services/productAPI";
 import type { Product } from "../types/product";
 
-function ProductSection() {
+type ProductSectionProps = {
+  selectedCategory: string;
+};
+
+function ProductSection({ selectedCategory }: ProductSectionProps) {
   const [products, setProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -23,6 +27,16 @@ function ProductSection() {
     loadProducts();
   }, []);
 
+  const filteredProducts =
+    selectedCategory === "all"
+      ? products
+      : products.filter((product) => product.category === selectedCategory);
+
+  const visibleProducts =
+    selectedCategory === "all"
+      ? filteredProducts
+      : filteredProducts.slice(0, 8);
+
   return (
     <section className="mx-auto max-w-7xl px-6 pb-16">
       <div className="mb-8">
@@ -37,9 +51,10 @@ function ProductSection() {
         {error && <p className="mt-8 text-red-600">{error}</p>}
 
         <div className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-          {products.slice(0, 8).map((product) => (
+          {visibleProducts.map((product) => (
             <ProductCard
               key={product.id}
+              id={product.id}
               name={product.title}
               brand={product.brand ?? "Ukjent merke"}
               price={product.price}
