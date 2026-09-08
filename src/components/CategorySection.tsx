@@ -1,13 +1,48 @@
-import { Brush, Droplets, Heart, Sparkles } from "lucide-react";
-
-const categories = [
-  { name: "Sminke", icon: Brush },
-  { name: "Hudpleie", icon: Droplets },
-  { name: "Parfyme", icon: Sparkles },
-  { name: "Beauty", icon: Heart },
-];
+import { useEffect, useState } from "react";
+import { getProducts } from "../services/productAPI";
+import type { Product } from "../types/product";
 
 function CategorySection() {
+  const [products, setProducts] = useState<Product[]>([]);
+
+  useEffect(() => {
+    async function LoadProducts() {
+      const data = await getProducts();
+      setProducts(data.products);
+    }
+
+    LoadProducts();
+  }, []);
+
+  const beautyProducts = products.filter(
+    (product) => product.category === "beauty"
+  );
+
+  const categories = [
+    {
+      name: "Sminke",
+      image:
+        products.find((product) => product.category === "beauty")?.thumbnail ||
+        "",
+    },
+    {
+      name: "Hudpleie",
+      image:
+        products.find((product) => product.category === "skin-care")
+          ?.thumbnail || "",
+    },
+    {
+      name: "Parfyme",
+      image:
+        products.find((product) => product.category === "fragrances")
+          ?.thumbnail || "",
+    },
+    {
+      name: "Beauty",
+      image: beautyProducts[1]?.thumbnail,
+    },
+  ];
+
   return (
     <section className="mx-auto max-w-7xl px-6 py-14">
       <div className="mb-8">
@@ -19,21 +54,27 @@ function CategorySection() {
       </div>
 
       <div className="grid grid-cols-2 gap-4 sm:grid-cols-4">
-        {categories.map((category) => {
-          const Icon = category.icon;
+        {categories.map((category) => (
+          <button
+            key={category.name}
+            type="button"
+            className="overflow-hidden rounded-xl border border-[#EAD8D5] bg-white text-[#171717] transition hover:border-[#B85F6B] hover:shadow-sm focus:outline-none focus:ring-2 focus:ring-[#B85F6B] focus:ring-offset-2"
+          >
+            <div className="flex h-36 items-center justify-center bg-[#FFF8F7]">
+              {category.image && (
+                <img
+                  src={category.image}
+                  alt=""
+                  className="h-full w-full object-contain p-4"
+                />
+              )}
+            </div>
 
-          return (
-            <button
-              key={category.name}
-              type="button"
-              className="flex flex-col items-center justify-center gap-3 rounded-2xl border border-slate-200 bg-white p-6 text-[#172033] transition hover:border-[#B85F6B] hover:bg-[#F3F1FA] focus:outline-none focus:ring-2 focus:ring-[#B85F6B] focus:ring-offset-2"
-            >
-              <Icon size={30} />
-
+            <div className="p-4 text-center">
               <span className="font-semibold">{category.name}</span>
-            </button>
-          );
-        })}
+            </div>
+          </button>
+        ))}
       </div>
     </section>
   );
