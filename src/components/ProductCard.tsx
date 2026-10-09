@@ -8,6 +8,7 @@ type ProductCardProps = {
   price: number;
   image: string;
   rating?: number;
+  onAddToCart: (id: number) => void;
 };
 
 function ProductCard({
@@ -17,6 +18,7 @@ function ProductCard({
   price,
   image,
   rating,
+  onAddToCart,
 }: ProductCardProps) {
   const [isFavorite, setIsFavorite] = useState(() => {
     const savedFavorites = JSON.parse(
@@ -78,7 +80,8 @@ function ProductCard({
 
         <button
           type="button"
-          className="mt-4 flex items-center justify-center gap-2 rounded-lg bg-[#B85F6B] px-4 py-3 font-semibold text-white transition hover:bg-[#A6505C] focus:outline-none focus:ring-2 focus:ring-[#B85F6B] focus:ring-offset-2"
+          onClick={() => onAddToCart(id)}
+          className="mt-4 flex cursor-pointer items-center justify-center gap-2 rounded-lg bg-[#B85F6B] px-4 py-3 font-semibold text-white transition hover:bg-[#A6505C] focus:outline-none focus:ring-2 focus:ring-[#B85F6B] focus:ring-offset-2"
         >
           <ShoppingCart size={18} />
           Legg i handlekurv

@@ -5,9 +5,13 @@ import type { Product } from "../types/product";
 
 type ProductSectionProps = {
   selectedCategory: string;
+  onAddToCart: (id: number) => void;
 };
 
-function ProductSection({ selectedCategory }: ProductSectionProps) {
+function ProductSection({
+  selectedCategory,
+  onAddToCart,
+}: ProductSectionProps) {
   const [products, setProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -60,6 +64,7 @@ function ProductSection({ selectedCategory }: ProductSectionProps) {
               price={product.price}
               image={product.thumbnail}
               rating={product.rating}
+              onAddToCart={onAddToCart}
             />
           ))}
         </div>

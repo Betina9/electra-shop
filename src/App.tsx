@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
+import CartPage from "./pages/CartPage";
 import Header from "./components/header";
 import Hero from "./components/hero";
 import CategorySection from "./components/CategorySection";
@@ -9,12 +10,16 @@ import FavoritesPage from "./pages/FavoritesPage";
 
 function App() {
   const [selectedCategory, setSelectedCategory] = useState("all");
+  const [cart, setCart] = useState<number[]>(() => {
+    return JSON.parse(localStorage.getItem("cart") || "[]");
+  });
 
   return (
     <BrowserRouter>
-      <Header />
+      <Header cartCount={cart.length} />
 
       <Routes>
+        <Route path="/cart" element={<CartPage />} />
         <Route
           path="/"
           element={
@@ -23,7 +28,15 @@ function App() {
 
               <CategorySection onSelectCategory={setSelectedCategory} />
 
-              <ProductSection selectedCategory={selectedCategory} />
+              <ProductSection
+                selectedCategory={selectedCategory}
+                onAddToCart={(id) => {
+                  const updatedCart = [...cart, id];
+
+                  setCart(updatedCart);
+                  localStorage.setItem("cart", JSON.stringify(updatedCart));
+                }}
+              />
             </main>
           }
         />

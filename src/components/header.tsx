@@ -2,7 +2,11 @@ import { Heart, Search, ShoppingCart } from "lucide-react";
 import { Link, useLocation } from "react-router-dom";
 import logo from "../assets/makeupDream.png";
 
-function Header() {
+type HeaderProps = {
+  cartCount: number;
+};
+
+function Header({ cartCount }: HeaderProps) {
   const location = useLocation();
 
   const isFavoritesPage = location.pathname === "/favorites";
@@ -51,7 +55,7 @@ function Header() {
           <ShoppingCart />
 
           <span className="absolute -right-1 -top-1 rounded-full bg-[#B85F6B] px-1.5 text-xs text-white">
-            0
+            {cartCount}
           </span>
         </button>
       </div>
