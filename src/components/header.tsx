@@ -47,17 +47,19 @@ function Header({ cartCount }: HeaderProps) {
           <Heart />
         </Link>
 
-        <button
-          type="button"
-          aria-label="Handlekurv"
-          className="relative p-2 text-[#171717] transition hover:text-[#B85F6B]"
+        <Link
+          to="/cart"
+          aria-label={`Handlekurv, ${cartCount} varer`}
+          className="relative cursor-pointer p-2 text-[#171717] transition hover:text-[#B85F6B]"
         >
           <ShoppingCart />
 
-          <span className="absolute -right-1 -top-1 rounded-full bg-[#B85F6B] px-1.5 text-xs text-white">
-            {cartCount}
-          </span>
-        </button>
+          {cartCount > 0 && (
+            <span className="absolute -right-1 -top-1 rounded-full bg-[#B85F6B] px-1.5 text-xs text-white">
+              {cartCount}
+            </span>
+          )}
+        </Link>
       </div>
     </header>
   );
